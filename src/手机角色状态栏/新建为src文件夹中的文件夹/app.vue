@@ -10,12 +10,11 @@
       <!-- 顶部状态栏 -->
       <div class="status-bar">
         <div class="status-left">
+          <span class="time">{{ currentTime }}</span>
           <i class="fa fa-signal"></i>
           <i class="fa fa-wifi"></i>
         </div>
-        <div class="status-mid">
-          <span class="time">{{ currentTime }}</span>
-        </div>
+        <div class="status-mid"></div>
         <div class="status-right">
           <span class="weather">{{ weather }}</span>
           <i class="fa fa-battery-three-quarters"></i>
@@ -122,7 +121,7 @@ onUnmounted(() => {
   height: 30px;
   background: #0a0a0a; /* slightly lighter than frame for visibility */
   border-radius: 0 0 20px 20px;
-  z-index: 50; /* ensure on top of status bar */
+  z-index: 130; /* above status bar center area */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -153,13 +152,13 @@ onUnmounted(() => {
   height: 76px; /* include notch */
   padding: 38px 14px 10px 14px;
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  grid-template-columns: auto 1fr auto; /* leave center for notch */
   align-items: center;
   color: #fff;
   font-size: 12px;
   /* transparent top bar so the notch is visible; subtle fade for readability */
   background: linear-gradient(180deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,0) 100%);
-  z-index: 40;
+  z-index: 120;
 }
 .status-left, .status-right { display: flex; align-items: center; gap: 6px; }
 .status-mid { text-align: center; font-weight: 700; letter-spacing: 0.5px; }
@@ -210,7 +209,7 @@ onUnmounted(() => {
   position: absolute;
   left: 0;
   right: 0;
-  top: 76px;
+  top: 88px; /* leave a bit more room to avoid overlap */
   bottom: 56px;
   overflow-y: auto;
   background: #f5f5f5;
