@@ -3,6 +3,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <!-- Font Awesome for tab icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <!-- Provide Vue as global for bundled externals ('var Vue') when running outside SillyTavern iframe -->
+  <script src="https://testingcf.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
   <title>手机角色状态栏</title>
   <style>
     html,
@@ -20,6 +22,7 @@
   </style>
   <!-- JS/CSS built by webpack will be injected and inlined -->
   <!-- Keep head minimal; avoid blocking resources here -->
+  <script type="module" src="./index.ts"></script>
 </head>
 <body>
   <div id="app"></div>
