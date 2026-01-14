@@ -120,14 +120,15 @@ onUnmounted(() => {
   transform: translateX(-50%);
   width: 150px;
   height: 30px;
-  background: #000;
+  background: #0a0a0a; /* slightly lighter than frame for visibility */
   border-radius: 0 0 20px 20px;
-  z-index: 10;
+  z-index: 50; /* ensure on top of status bar */
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   padding: 0 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,.6);
 }
 
 .notch-camera {
@@ -156,7 +157,9 @@ onUnmounted(() => {
   align-items: center;
   color: #fff;
   font-size: 12px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  /* transparent top bar so the notch is visible; subtle fade for readability */
+  background: linear-gradient(180deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,0) 100%);
+  z-index: 40;
 }
 .status-left, .status-right { display: flex; align-items: center; gap: 6px; }
 .status-mid { text-align: center; font-weight: 700; letter-spacing: 0.5px; }

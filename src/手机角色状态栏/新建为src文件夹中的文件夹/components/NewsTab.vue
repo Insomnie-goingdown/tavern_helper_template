@@ -203,10 +203,11 @@ onUnmounted(() => {
 }
 
 .news-banner {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  /* let the phone top bar / notch show through; banner starts lower */
   color: #fff;
   padding: 16px 14px;
   display: flex; align-items: flex-end; justify-content: space-between;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 .news-banner .badge { background:#ff3b30; border-radius:6px; padding:2px 6px; font-size:10px; font-weight:700; display:inline-block; margin-bottom:6px; }
 .news-banner h2 { margin: 0; font-size: 22px; font-weight: 800; letter-spacing: 0.5px; }
