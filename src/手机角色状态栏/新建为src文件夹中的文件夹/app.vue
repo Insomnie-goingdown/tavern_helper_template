@@ -167,7 +167,7 @@ onUnmounted(() => {
   left: 0;
   right: 0;
   bottom: 0;
-  height: 60px;
+  height: 56px;
   display: flex;
   background: #fff;
   border-top: 1px solid #e0e0e0;
@@ -208,7 +208,7 @@ onUnmounted(() => {
   left: 0;
   right: 0;
   top: 76px;
-  bottom: 60px;
+  bottom: 56px;
   overflow-y: auto;
   background: #f5f5f5;
 }

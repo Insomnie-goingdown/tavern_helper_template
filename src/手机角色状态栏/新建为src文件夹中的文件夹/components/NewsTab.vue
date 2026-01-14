@@ -215,9 +215,7 @@ onUnmounted(() => {
 
 /* 取消筛选条，保留 pill 标签在新闻项头部（.news-category-badge 已改） */
 
-.news-list {
-  padding: 12px;
-}
+.news-list { padding: 10px 10px 12px 10px; }
 
 .news-item {
   background: #fff;
@@ -247,30 +245,10 @@ onUnmounted(() => {
   color: #999;
 }
 
-.news-title {
-  margin: 0 0 8px 0;
-  font-size: 16px;
-  font-weight: 600;
-  color: #333;
-}
+.news-title { margin:0 0 6px 0; font-size:16px; font-weight:800; color:#2b2b2b; letter-spacing:.2px; }
 
-.news-content {
-  margin: 0;
-  font-size: 14px;
-  color: #666;
-  line-height: 1.6;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-
-  &.expanded {
-    display: block;
-    -webkit-line-clamp: unset;
-    line-clamp: unset;
-  }
-}
+.news-content { margin:0; font-size:14px; color:#555; line-height:1.55; display:-webkit-box; -webkit-line-clamp:2; line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.news-content.expanded { display:block; -webkit-line-clamp:unset; line-clamp:unset; }
 
 .news-comments {
   margin-top: 16px;
