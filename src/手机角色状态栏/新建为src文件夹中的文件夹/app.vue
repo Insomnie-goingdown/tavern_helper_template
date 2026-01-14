@@ -160,11 +160,14 @@ onUnmounted(() => {
   align-items: center;
   color: #fff;
   font-size: 12px;
-  /* transparent top bar so the notch is visible; subtle fade for readability */
-  background: linear-gradient(180deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,0) 100%);
+  /* 独立顶栏：全不透明渐变 + 模糊，避免与功能内容重叠产生穿透感 */
+  background: linear-gradient(180deg, rgba(10,10,10,.92) 0%, rgba(10,10,10,.82) 100%);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   z-index: 120;
+  pointer-events: none; /* 顶栏不拦截滚动/点击 */
 }
-.status-left, .status-right { display: flex; align-items: center; gap: 6px; }
+.status-left, .status-right { display: flex; align-items: center; gap: 6px; pointer-events: auto; }
 .status-mid { text-align: center; font-weight: 700; letter-spacing: 0.5px; }
 .status-right .weather { font-weight: 600; margin-right: 4px; }
 
@@ -213,7 +216,7 @@ onUnmounted(() => {
   position: absolute;
   left: 0;
   right: 0;
-  top: var(--safe-top); /* 与状态栏一致，保证完全不重叠 */
+  top: calc(var(--safe-top) + 4px); /* 再加 4px 的冗余，确保任何投影不重叠 */
   bottom: 56px;
   overflow-y: auto;
   background: #f5f5f5;
