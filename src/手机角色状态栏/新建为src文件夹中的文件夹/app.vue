@@ -95,9 +95,9 @@ onUnmounted(() => {
 <style lang="scss" scoped>
 .phone-container {
   width: 100%;
-  max-width: 430px; /* iPhone 16 Pro Max 近似逻辑宽度 */
+  max-width: 440px; /* 稍微加宽以容纳状态栏边距 */
   margin: 0 auto;
-  aspect-ratio: 430 / 932;
+  aspect-ratio: 440 / 956;
   position: relative;
 }
 
@@ -110,7 +110,7 @@ onUnmounted(() => {
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
   overflow: hidden;
   /* 安全区，确保内容不压到动态岛/状态栏 */
-  --safe-top: 96px; /* 顶部安全区 */
+  --safe-top: 104px; /* 顶部安全区再增加一些余量 */
 }
 
 /* 动态岛外观 */
