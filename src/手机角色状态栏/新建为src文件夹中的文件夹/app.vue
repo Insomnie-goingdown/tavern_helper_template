@@ -1,10 +1,9 @@
 <template>
   <div class="phone-container">
     <div class="phone-frame">
-      <!-- 刘海 -->
-      <div class="notch">
-        <div class="notch-camera"></div>
-        <div class="notch-speaker"></div>
+      <!-- 动态岛（iPhone 16 Pro Max 风格） -->
+      <div class="dynamic-island">
+        <div class="island-camera"></div>
       </div>
 
       <!-- 顶部状态栏 -->
@@ -96,9 +95,9 @@ onUnmounted(() => {
 <style lang="scss" scoped>
 .phone-container {
   width: 100%;
-  max-width: 390px;
+  max-width: 430px; /* iPhone 16 Pro Max 近似逻辑宽度 */
   margin: 0 auto;
-  aspect-ratio: 390 / 844;
+  aspect-ratio: 430 / 932;
   position: relative;
 }
 
@@ -110,24 +109,29 @@ onUnmounted(() => {
   padding: 8px;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
   overflow: hidden;
+  /* 安全区，确保内容不压到动态岛/状态栏 */
+  --safe-top: 96px; /* 顶部安全区 */
 }
 
-.notch {
+/* 动态岛外观 */
+.dynamic-island {
   position: absolute;
-  top: 0;
+  top: 10px;
   left: 50%;
   transform: translateX(-50%);
-  width: 150px;
-  height: 30px;
-  background: #0a0a0a; /* slightly lighter than frame for visibility */
-  border-radius: 0 0 20px 20px;
-  z-index: 130; /* above status bar center area */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 0 20px;
-  box-shadow: 0 2px 6px rgba(0,0,0,.6);
+  width: 126px;
+  height: 37px;
+  background: #0a0a0a;
+  border-radius: 22px;
+  z-index: 140; /* 高于状态栏 */
+  box-shadow: 0 2px 8px rgba(0,0,0,.6), inset 0 0 0 1px rgba(255,255,255,.03);
+}
+.dynamic-island .island-camera {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px; height: 6px; border-radius: 50%; background: #111;
 }
 
 .notch-camera {
@@ -149,8 +153,8 @@ onUnmounted(() => {
   left: 0;
   right: 0;
   top: 0;
-  height: 76px; /* include notch */
-  padding: 38px 14px 10px 14px;
+  height: var(--safe-top);
+  padding: calc(var(--safe-top) - 32px) 14px 10px 14px; /* 使图标在安全区底部对齐 */
   display: grid;
   grid-template-columns: auto 1fr auto; /* leave center for notch */
   align-items: center;
@@ -209,7 +213,7 @@ onUnmounted(() => {
   position: absolute;
   left: 0;
   right: 0;
-  top: 88px; /* leave a bit more room to avoid overlap */
+  top: var(--safe-top); /* 与状态栏一致，保证完全不重叠 */
   bottom: 56px;
   overflow-y: auto;
   background: #f5f5f5;
