@@ -7,30 +7,23 @@
       </div>
     </div>
 
-    <!-- Banner -->
+    <!-- Banner（更花哨、带副标题与天气角标） -->
     <div class="news-banner">
-      <h2>{{ newspaperTitle }}</h2>
-      <p class="banner-date">{{ currentDate }}</p>
-    </div>
-
-    <!-- 新闻分类标签 -->
-    <div class="news-categories">
-      <button
-        v-for="category in categories"
-        :key="category"
-        class="category-tag"
-        :class="{ active: selectedCategory === category }"
-        @click="selectedCategory = category"
-      >
-        {{ category }}
-      </button>
+      <div class="banner-left">
+        <div class="badge">LIVE</div>
+        <h2>{{ newspaperTitle }}</h2>
+        <p class="banner-date">{{ currentDate }}</p>
+      </div>
+      <div class="banner-right">
+        <div class="weather-chip">{{ bannerWeather }}</div>
+      </div>
     </div>
 
     <!-- 新闻列表 -->
     <div class="news-list">
       <div v-for="(news, index) in filteredNews" :key="index" class="news-item" @click="expandNews(index)">
         <div class="news-header">
-          <span class="news-category-badge">{{ news.category }}</span>
+          <span class="news-category-badge pill">{{ news.category }}</span>
           <span class="news-time">{{ news.time }}</span>
         </div>
         <h3 class="news-title">{{ news.title }}</h3>
@@ -62,6 +55,7 @@ const newspaperTitle = ref('城市早报');
 const currentDate = ref('');
 const categories = ['快讯', '本地', '世界', '突发', '民生', '娱乐', '健康'];
 const selectedCategory = ref('快讯');
+const bannerWeather = ref('晴 22℃');
 const expandedNews = ref(new Set<number>());
 
 interface NewsItem {
@@ -78,12 +72,8 @@ interface NewsItem {
 
 const newsList = ref<NewsItem[]>([]);
 
-const filteredNews = computed(() => {
-  if (selectedCategory.value === '快讯') {
-    return newsList.value;
-  }
-  return newsList.value.filter(news => news.category === selectedCategory.value);
-});
+// 不再过滤，只展示 4~5 条，并且把类别当作彩色标签
+const filteredNews = computed(() => newsList.value.slice(0, 5));
 
 function expandNews(index: number) {
   if (expandedNews.value.has(index)) {
@@ -143,7 +133,19 @@ function generateNewsFromWorldbook() {
       time: '08:00',
       comments: [],
     },
+    {
+      category: '突发',
+      title: '地铁线路临时延误通告',
+      content: '因早高峰信号短暂异常，2号线部分区段出现 5-8 分钟延误，目前已逐步恢复。',
+      time: '08:45',
+      comments: [],
+    },
   ];
+
+  // 天气角标
+  const w = world.天气 || world.当前天气 || variables.weather || '晴';
+  const t = world.温度 || world.temperature || '22℃';
+  bannerWeather.value = `${w} ${typeof t === 'number' ? t + '℃' : t}`;
 }
 
 let tickerInterval: ReturnType<typeof setInterval> | null = null;
@@ -203,52 +205,15 @@ onUnmounted(() => {
 .news-banner {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: #fff;
-  padding: 20px;
-  text-align: center;
-
-  h2 {
-    margin: 0;
-    font-size: 24px;
-    font-weight: bold;
-  }
-
-  .banner-date {
-    margin: 8px 0 0 0;
-    font-size: 14px;
-    opacity: 0.9;
-  }
+  padding: 16px 14px;
+  display: flex; align-items: flex-end; justify-content: space-between;
 }
+.news-banner .badge { background:#ff3b30; border-radius:6px; padding:2px 6px; font-size:10px; font-weight:700; display:inline-block; margin-bottom:6px; }
+.news-banner h2 { margin: 0; font-size: 22px; font-weight: 800; letter-spacing: 0.5px; }
+.news-banner .banner-date { margin: 4px 0 0 0; font-size: 12px; opacity: 0.9; }
+.weather-chip { background: rgba(255,255,255,.2); padding:6px 10px; border-radius: 12px; font-weight:700; font-size:12px; }
 
-.news-categories {
-  display: flex;
-  gap: 8px;
-  padding: 12px;
-  background: #fff;
-  overflow-x: auto;
-  border-bottom: 1px solid #e0e0e0;
-}
-
-.category-tag {
-  padding: 6px 16px;
-  border: 1px solid #e0e0e0;
-  border-radius: 20px;
-  background: #fff;
-  color: #666;
-  font-size: 13px;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: all 0.2s;
-
-  &:hover {
-    background: #f5f5f5;
-  }
-
-  &.active {
-    background: #667eea;
-    color: #fff;
-    border-color: #667eea;
-  }
-}
+/* 取消筛选条，保留 pill 标签在新闻项头部（.news-category-badge 已改） */
 
 .news-list {
   padding: 12px;
@@ -275,14 +240,7 @@ onUnmounted(() => {
   margin-bottom: 8px;
 }
 
-.news-category-badge {
-  background: #667eea;
-  color: #fff;
-  padding: 2px 8px;
-  border-radius: 4px;
-  font-size: 11px;
-  font-weight: 600;
-}
+.news-category-badge.pill { background: #667eea; color:#fff; padding:4px 10px; border-radius: 999px; font-size:12px; font-weight:700; box-shadow: 0 2px 8px rgba(102,126,234,.35); }
 
 .news-time {
   font-size: 12px;
