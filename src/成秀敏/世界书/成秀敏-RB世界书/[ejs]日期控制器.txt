@@ -1,0 +1,46 @@
+---
+[ejs]日期控制器:
+  # 注意：EJS代码必须严格复制，不要修改结构
+  content: |
+    <%_
+    // 统一从 MVU 变量读取日期；默认值便于触发事件回归
+    if (typeof currentDate === 'undefined') var currentDate = getvar('stat_data.世界系统.全局时间.日期', { defaults: '2024年12月24日' });
+
+    // 解析出月日，避免子串误触发
+    var md = '';
+    var match = /(\d{1,2})月(\d{1,2})日/.exec(currentDate);
+    if (match) md = match[1] + '-' + match[2];
+    var month = match ? match[1] : '';
+    _%>
+
+    <%_ if (md === '5-10') { _%>
+    <%- await getwi(null, '[event]忌日_至暗时刻') %>
+    <%_ } else if (md === '6-15') { _%>
+    <%- await getwi(null, '[event]出道纪念日') %>
+    <%_ } else if (md === '3-1') { _%>
+    <%- await getwi(null, '[event]<user>生日') %>
+    <%_ } else if (md === '3-13') { _%>
+    <%- await getwi(null, '[event]林母忌日') %>
+    <%_ } else if (md === '9-27') { _%>
+    <%- await getwi(null, '[event]老会长忌日') %>
+    <%_ } else if (md === '9-17') { /* 秋夕节 */ _%>
+    <%- await getwi(null, '[event]秋夕节') %>
+    <%_ } else if (md === '12-20') { _%>
+    <%- await getwi(null, '[event]圣诞Live') %>
+    <%_ } else if (md === '1-1') { _%>
+    <%- await getwi(null, '[event]元旦跨年') %>
+    <%_ } else if (md === '1-20') { _%>
+    <%- await getwi(null, '[event]团综_田园民宿') %>
+    <%_ } else if (md === '12-24') { _%>
+    <%- await getwi(null, '[event]巡演首场_平安夜') %>
+    <%_ } else if (md === '10-20') { _%>
+    <%- await getwi(null, '[event]司南生日') %>
+    <%_ } else if (md === '7-7') { _%>
+    <%- await getwi(null, '[event]李允儿生日') %>
+    <%_ } else if (md === '11-20') { _%>
+    <%- await getwi(null, '[event]成秀敏生日') %>
+    <%_ } else if (md === '2-14') { _%>
+    <%- await getwi(null, '[event]情人节特殊剧情') %>
+    <%_ } else if (['11','12','1','2'].includes(month)) { /* 颁奖季 */ _%>
+    <%- await getwi(null, '[event]颁奖季') %>
+    <%_ } _%>

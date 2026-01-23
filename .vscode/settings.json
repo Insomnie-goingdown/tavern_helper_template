@@ -49,5 +49,6 @@
   "[vue]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "livePreview.defaultPreviewPath": "/src/界面/状态栏/index.html"
 }
