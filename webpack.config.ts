@@ -48,10 +48,11 @@ function common_path(lhs: string, rhs: string) {
   return lhs_parts.join(path.sep);
 }
 
+// Find entry files. In dev we want to support both real src/ and 示例/ folders
 function glob_script_files() {
   const results: string[] = [];
-
-  fs.globSync(`{示例,src}/**/index.{ts,tsx,js,jsx}`)
+  // Support examples under 示例/ too, so watch/build works out of the box
+  fs.globSync(`{src,示例}/**/index.{ts,tsx,js,jsx}`)
     .filter(
       file => process.env.CI !== 'true' || !fs.readFileSync(path.join(import.meta.dirname, file)).includes('@no-ci'),
     )
@@ -116,8 +117,11 @@ function dump_schema(compiler: webpack.Compiler) {
   if (!compiler.options.watch) {
     execute_debounced();
   } else if (!watcher) {
-    watcher = watch('src', {
-      awaitWriteFinish: true,
+    // Watch both real src/ and 示例/ folders so example schemas also trigger dumps
+    watcher = watch(['src', '示例'], {
+      // debounce writes from editors; missing events on network/iCloud disks are mitigated by polling in watchOptions
+      awaitWriteFinish: { stabilityThreshold: 200, pollInterval: 100 },
+      ignoreInitial: true,
     }).on('all', (_event, path) => {
       if (path.endsWith('schema.ts')) {
         execute_debounced();
@@ -187,6 +191,13 @@ function parse_configuration(entry: Entry): (_env: any, argv: any) => webpack.Co
     devtool: argv.mode === 'production' ? 'source-map' : 'eval-source-map',
     watchOptions: {
       ignored: ['**/dist', '**/node_modules'],
+      // On macOS iCloud/Desktop, network shares, or some editors, fs events can be flaky.
+      // Enable polling by default so "pnpm watch" reliably picks up changes.
+      // Can be overridden via WEBPACK_POLL_MS env (e.g. 200-1000ms).
+      poll: Number.isFinite(Number(process.env.WEBPACK_POLL_MS))
+        ? Number(process.env.WEBPACK_POLL_MS)
+        : 500,
+      aggregateTimeout: 200,
     },
     entry: path.join(import.meta.dirname, entry.script),
     target: 'browserslist',

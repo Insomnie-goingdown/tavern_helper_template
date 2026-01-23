@@ -1,4 +1,4 @@
-$(async () => {
+ $(async () => {
   injectPrompts([
     {
       id: '冲动啊，请平息吧',
