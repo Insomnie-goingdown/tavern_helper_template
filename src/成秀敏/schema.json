@@ -1,0 +1,727 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "世界系统": {
+      "default": {},
+      "type": "object",
+      "properties": {
+        "全局时间": {
+          "default": {},
+          "type": "object",
+          "properties": {
+            "日期": {
+              "default": "2024年12月24日",
+              "type": "string"
+            },
+            "时间": {
+              "default": "22:00",
+              "type": "string"
+            }
+          }
+        },
+        "当前地点": {
+          "default": "韩国首尔",
+          "type": "string"
+        },
+        "当前场景": {
+          "default": "东京酒店",
+          "type": "string"
+        },
+        "当前时间段": {
+          "default": "深夜",
+          "type": "string"
+        },
+        "当前结局": {
+          "default": "无",
+          "type": "string"
+        },
+        "环境与新闻": {
+          "default": {},
+          "type": "object",
+          "properties": {
+            "天气": {
+              "default": "暴雨",
+              "type": "string"
+            },
+            "本地新闻": {
+              "default": "首尔市发布暴雨预警，汉江水位上涨。",
+              "type": "string"
+            },
+            "娱乐圈舆论": {
+              "default": "RhythmBeats巡演大获成功，但也引发部分关于成员状态的讨论。",
+              "type": "string"
+            }
+          }
+        },
+        "林氏财团": {
+          "default": {},
+          "type": "object",
+          "properties": {
+            "林氏电子股价": {
+              "default": 150.23,
+              "type": "number"
+            },
+            "林氏建设股价": {
+              "default": 89.5,
+              "type": "number"
+            }
+          }
+        },
+        "公众舆论": {
+          "default": {},
+          "type": "object",
+          "properties": {
+            "路人评价": {
+              "default": "RhythmBeats的歌还是一如既往地好听。",
+              "type": "string"
+            },
+            "粉丝态度": {
+              "default": "“嘉人”们正在集资为Lyra准备生日应援。",
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "事件记录": {
+      "default": {
+        "司南刺激已触发": false,
+        "向司南求助": false,
+        "凝视对戒": false
+      },
+      "type": "object",
+      "propertyNames": {
+        "type": "string",
+        "description": "事件名"
+      },
+      "additionalProperties": {
+        "type": "boolean"
+      }
+    },
+    "乐队系统": {
+      "default": {},
+      "type": "object",
+      "properties": {
+        "团队凝聚力": {
+          "default": 35,
+          "type": "number"
+        },
+        "专辑制作进度": {
+          "default": 60,
+          "type": "number"
+        },
+        "巡演状态": {
+          "default": "进行中",
+          "type": "string",
+          "enum": [
+            "筹备中",
+            "进行中",
+            "结束"
+          ]
+        },
+        "粉丝基数": {
+          "type": "number"
+        },
+        "CP热度系统": {
+          "default": {},
+          "type": "object",
+          "propertyNames": {
+            "type": "string",
+            "description": "CP组合名, 如: 敏嘉"
+          },
+          "additionalProperties": {
+            "default": {},
+            "type": "object",
+            "properties": {
+              "热度值": {
+                "type": "number"
+              },
+              "粉丝基数": {
+                "type": "number"
+              },
+              "粉丝倾向": {
+                "type": "string"
+              },
+              "标签": {
+                "default": [],
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "备注": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "核心角色": {
+      "default": {},
+      "type": "object",
+      "properties": {
+        "<user>": {
+          "default": {},
+          "type": "object",
+          "properties": {
+            "个人表现分": {
+              "default": 95,
+              "type": "number"
+            },
+            "核心状态": {
+              "default": {},
+              "type": "object",
+              "properties": {
+                "身体健康": {
+                  "default": 45,
+                  "type": "number"
+                },
+                "精神韧性": {
+                  "default": 70,
+                  "type": "number"
+                },
+                "痛觉依赖度": {
+                  "default": 55,
+                  "type": "number"
+                },
+                "药物抗性": {
+                  "default": 20,
+                  "type": "number"
+                }
+              }
+            },
+            "资源与权力": {
+              "default": {},
+              "type": "object",
+              "properties": {
+                "个人资产": {
+                  "default": 5000000000,
+                  "type": "number"
+                },
+                "资源调动权限": {
+                  "default": "中",
+                  "type": "string",
+                  "enum": [
+                    "高",
+                    "中",
+                    "低"
+                  ]
+                },
+                "静室指挥权": {
+                  "default": true,
+                  "type": "boolean"
+                },
+                "林泰成信任度": {
+                  "default": 60,
+                  "type": "number"
+                },
+                "舆论影响力": {
+                  "default": 85,
+                  "type": "number"
+                }
+              }
+            },
+            "NSFW档案": {
+              "default": {},
+              "type": "object",
+              "properties": {
+                "体位偏好": {
+                  "default": {},
+                  "type": "object",
+                  "propertyNames": {
+                    "type": "string",
+                    "description": "姿势名称"
+                  },
+                  "additionalProperties": {
+                    "type": "boolean"
+                  }
+                },
+                "服从度": {
+                  "default": 80,
+                  "type": "number"
+                },
+                "器官状态": {
+                  "default": {},
+                  "type": "object",
+                  "properties": {
+                    "阴道": {
+                      "default": "正常",
+                      "type": "string",
+                      "enum": [
+                        "正常",
+                        "红肿",
+                        "干涩",
+                        "湿润"
+                      ]
+                    },
+                    "宫颈": {
+                      "default": "正常",
+                      "type": "string",
+                      "enum": [
+                        "正常",
+                        "敏感",
+                        "触痛"
+                      ]
+                    },
+                    "乳头": {
+                      "default": "正常",
+                      "type": "string",
+                      "enum": [
+                        "正常",
+                        "瘀紫",
+                        "破损"
+                      ]
+                    }
+                  }
+                },
+                "伤痕与标记": {
+                  "default": {},
+                  "type": "object",
+                  "properties": {
+                    "颈部勒痕": {
+                      "default": "无",
+                      "type": "string",
+                      "enum": [
+                        "无",
+                        "浅",
+                        "深"
+                      ]
+                    },
+                    "体液残留": {
+                      "default": "无",
+                      "type": "string",
+                      "enum": [
+                        "无",
+                        "腿部",
+                        "口腔",
+                        "全身"
+                      ]
+                    },
+                    "咬痕数量": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "敏感点开发度": {
+                  "default": {},
+                  "type": "object",
+                  "propertyNames": {
+                    "type": "string",
+                    "description": "敏感点, 如: 脖颈"
+                  },
+                  "additionalProperties": {
+                    "type": "number"
+                  }
+                },
+                "XP": {
+                  "default": {
+                    "精神抽离": true,
+                    "痛觉转化": true
+                  },
+                  "type": "object",
+                  "propertyNames": {
+                    "type": "string",
+                    "description": "XP名称"
+                  },
+                  "additionalProperties": {
+                    "type": "boolean"
+                  }
+                },
+                "状态记录": {
+                  "default": {},
+                  "type": "object",
+                  "properties": {
+                    "累计被内射次数": {
+                      "type": "number"
+                    },
+                    "最近一次性爱时间": {
+                      "type": "string"
+                    },
+                    "当日高潮次数": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "风险评估": {
+                  "default": {},
+                  "type": "object",
+                  "properties": {
+                    "避孕措施": {
+                      "default": "无",
+                      "type": "string",
+                      "enum": [
+                        "无",
+                        "体外",
+                        "安全套",
+                        "药物"
+                      ]
+                    },
+                    "怀孕概率": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "液体状态": {
+                  "default": {},
+                  "type": "object",
+                  "properties": {
+                    "润滑水平": {
+                      "default": "微湿",
+                      "type": "string",
+                      "enum": [
+                        "干涩",
+                        "微湿",
+                        "充足",
+                        "泛滥"
+                      ]
+                    },
+                    "溢出程度": {
+                      "default": "无",
+                      "type": "string",
+                      "enum": [
+                        "无",
+                        "少量",
+                        "明显",
+                        "滴落"
+                      ]
+                    }
+                  }
+                },
+                "屈从开关": {
+                  "default": {},
+                  "type": "object",
+                  "propertyNames": {
+                    "type": "string",
+                    "description": "触发词或动作"
+                  },
+                  "additionalProperties": {
+                    "default": "关闭",
+                    "type": "string",
+                    "enum": [
+                      "关闭",
+                      "半开",
+                      "全开"
+                    ]
+                  }
+                }
+              }
+            },
+            "真相探索": {
+              "default": {},
+              "type": "object",
+              "properties": {
+                "真相揭露进度": {
+                  "type": "number"
+                },
+                "关键线索持有数": {
+                  "type": "number"
+                }
+              }
+            },
+            "物品栏": {
+              "default": {},
+              "type": "object",
+              "propertyNames": {
+                "type": "string",
+                "description": "物品名"
+              },
+              "additionalProperties": {
+                "default": {},
+                "type": "object",
+                "properties": {
+                  "描述": {
+                    "type": "string"
+                  },
+                  "数量": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "描述",
+                  "数量"
+                ]
+              }
+            }
+          }
+        },
+        "成秀敏": {
+          "default": {},
+          "type": "object",
+          "properties": {
+            "个人表现分": {
+              "default": 98,
+              "type": "number"
+            },
+            "面具稳定度": {
+              "default": 80,
+              "type": "number"
+            },
+            "恨意表现值": {
+              "default": 95,
+              "type": "number"
+            },
+            "真实依恋度": {
+              "default": 70,
+              "type": "number"
+            },
+            "失去恐惧值": {
+              "default": 75,
+              "type": "number"
+            },
+            "愧疚值": {
+              "type": "number"
+            },
+            "真相怀疑度": {
+              "type": "number"
+            },
+            "烟瘾程度": {
+              "default": "重度",
+              "type": "string",
+              "enum": [
+                "无",
+                "轻度",
+                "中度",
+                "重度"
+              ]
+            },
+            "性欲水平": {
+              "default": "高",
+              "type": "string",
+              "enum": [
+                "低",
+                "中",
+                "高"
+              ]
+            },
+            "疲劳度": {
+              "default": 40,
+              "type": "number"
+            },
+            "NSFW档案": {
+              "default": {},
+              "type": "object",
+              "properties": {
+                "器官数据": {
+                  "default": {},
+                  "type": "object",
+                  "properties": {
+                    "尺寸": {
+                      "default": 22,
+                      "type": "number"
+                    },
+                    "状态": {
+                      "default": "疲软",
+                      "type": "string",
+                      "enum": [
+                        "疲软",
+                        "半勃起",
+                        "全勃起"
+                      ]
+                    }
+                  }
+                },
+                "姿势偏好": {
+                  "default": {},
+                  "type": "object",
+                  "propertyNames": {
+                    "type": "string",
+                    "description": "姿势名称"
+                  },
+                  "additionalProperties": {
+                    "type": "number",
+                    "description": "倾向权重"
+                  }
+                },
+                "XP": {
+                  "default": {
+                    "痛觉依赖": true,
+                    "支配占有": true
+                  },
+                  "type": "object",
+                  "propertyNames": {
+                    "type": "string",
+                    "description": "XP名称"
+                  },
+                  "additionalProperties": {
+                    "type": "boolean"
+                  }
+                },
+                "控制欲指数": {
+                  "default": 92,
+                  "type": "number"
+                },
+                "标记习惯": {
+                  "default": {},
+                  "type": "object",
+                  "properties": {
+                    "咬痕": {
+                      "default": "浅",
+                      "type": "string",
+                      "enum": [
+                        "无",
+                        "浅",
+                        "深"
+                      ]
+                    },
+                    "抽插节奏": {
+                      "default": "渐强",
+                      "type": "string",
+                      "enum": [
+                        "温柔",
+                        "渐强",
+                        "暴力"
+                      ]
+                    },
+                    "抽插时长": {
+                      "default": 20,
+                      "type": "number"
+                    }
+                  }
+                },
+                "状态记录": {
+                  "default": {},
+                  "type": "object",
+                  "properties": {
+                    "最近射精时间": {
+                      "type": "string"
+                    },
+                    "累计内射量": {
+                      "type": "number"
+                    }
+                  }
+                },
+                "道具使用": {
+                  "default": {},
+                  "type": "object",
+                  "propertyNames": {
+                    "type": "string",
+                    "description": "道具名称"
+                  },
+                  "additionalProperties": {
+                    "default": {},
+                    "type": "object",
+                    "properties": {
+                      "使用中": {
+                        "type": "boolean"
+                      },
+                      "备注": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "可发现的线索": {
+              "default": {},
+              "type": "object",
+              "propertyNames": {
+                "type": "string",
+                "description": "线索名, 如: 书房的病历"
+              },
+              "additionalProperties": {
+                "type": "boolean"
+              }
+            }
+          }
+        }
+      }
+    },
+    "重要NPC": {
+      "default": {},
+      "type": "object",
+      "properties": {
+        "司南": {
+          "default": {},
+          "type": "object",
+          "properties": {
+            "个人表现分": {
+              "default": 96,
+              "type": "number"
+            },
+            "关系值": {
+              "default": {},
+              "type": "object",
+              "properties": {
+                "对<user>": {
+                  "default": "哀其不幸",
+                  "type": "string"
+                },
+                "对成秀敏": {
+                  "default": "损友",
+                  "type": "string"
+                }
+              }
+            },
+            "与允儿的关系": {
+              "default": {},
+              "type": "object",
+              "properties": {
+                "好奇度": {
+                  "default": 60,
+                  "type": "number"
+                },
+                "关系状态": {
+                  "default": "正在被吸引",
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "李允儿": {
+          "default": {},
+          "type": "object",
+          "properties": {
+            "个人表现分": {
+              "default": 88,
+              "type": "number"
+            },
+            "关系值": {
+              "default": {},
+              "type": "object",
+              "properties": {
+                "对<user>": {
+                  "default": "关心心疼",
+                  "type": "string"
+                },
+                "对成秀敏": {
+                  "default": "崇拜鼓技",
+                  "type": "string"
+                }
+              }
+            },
+            "成长轨迹": {
+              "default": {},
+              "type": "object",
+              "properties": {
+                "理论知识": {
+                  "default": 10,
+                  "type": "number"
+                },
+                "实践进度": {
+                  "type": "number"
+                }
+              }
+            }
+          }
+        },
+        "林泰成": {
+          "default": {},
+          "type": "object",
+          "properties": {
+            "关系": {
+              "default": "工具/同类",
+              "type": "string"
+            },
+            "介入状态": {
+              "type": "boolean"
+            }
+          }
+        }
+      }
+    }
+  }
+}

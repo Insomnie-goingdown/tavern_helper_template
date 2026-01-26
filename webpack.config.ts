@@ -8,7 +8,6 @@ import fs from 'node:fs';
 import { createRequire } from 'node:module';
 import path from 'node:path';
 import RemarkHTML from 'remark-html';
-import { Server } from 'socket.io';
 import TerserPlugin from 'terser-webpack-plugin';
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 import unpluginAutoImport from 'unplugin-auto-import/webpack';
@@ -72,7 +71,18 @@ function glob_script_files() {
       results.push(file);
     });
 
-  return results;
+  const entry_filter = process.env.WEBPACK_ENTRY;
+  if (!entry_filter) {
+    return results;
+  }
+  const filters = entry_filter
+    .split(',')
+    .map(item => item.trim())
+    .filter(Boolean);
+  if (filters.length === 0) {
+    return results;
+  }
+  return results.filter(file => filters.some(filter => file.includes(filter)));
 }
 
 const config: Config = {
@@ -80,10 +90,11 @@ const config: Config = {
   entries: glob_script_files().map(parse_entry),
 };
 
-let io: Server;
+let io: import('socket.io').Server;
 function watch_tavern_helper(compiler: webpack.Compiler) {
   if (compiler.options.watch) {
     if (!io) {
+      const { Server } = require('socket.io');
       const port = config.port ?? 6621;
       io = new Server(port, { cors: { origin: '*' } });
       console.info(`\x1b[36m[tavern_helper]\x1b[0m 已启动酒馆监听服务`);
@@ -114,6 +125,9 @@ const execute = () => {
 };
 const execute_debounced = _.debounce(execute, 500, { leading: true, trailing: false });
 function dump_schema(compiler: webpack.Compiler) {
+  if (process.env.SKIP_SCHEMA_DUMP === 'true') {
+    return;
+  }
   if (!compiler.options.watch) {
     execute_debounced();
   } else if (!watcher) {
@@ -485,21 +499,27 @@ function parse_configuration(entry: Entry): (_env: any, argv: any) => webpack.Co
           : [],
       ),
     optimization: {
-      minimize: true,
-      minimizer: [
-        argv.mode === 'production'
-          ? new TerserPlugin({
-              terserOptions: { format: { quote_style: 1 }, mangle: { reserved: ['_', 'toastr', 'YAML', '$', 'z'] } },
-            })
-          : new TerserPlugin({
-              extractComments: false,
-              terserOptions: {
-                format: { beautify: true, indent_level: 2 },
-                compress: false,
-                mangle: false,
-              },
-            }),
-      ],
+      minimize: process.env.SKIP_MINIFY !== 'true',
+      minimizer:
+        process.env.SKIP_MINIFY === 'true'
+          ? []
+          : [
+              argv.mode === 'production'
+                ? new TerserPlugin({
+                    terserOptions: {
+                      format: { quote_style: 1 },
+                      mangle: { reserved: ['_', 'toastr', 'YAML', '$', 'z'] },
+                    },
+                  })
+                : new TerserPlugin({
+                    extractComments: false,
+                    terserOptions: {
+                      format: { beautify: true, indent_level: 2 },
+                      compress: false,
+                      mangle: false,
+                    },
+                  }),
+            ],
       splitChunks: {
         chunks: 'async',
         minSize: 20000,
@@ -531,7 +551,6 @@ function parse_configuration(entry: Entry): (_env: any, argv: any) => webpack.Co
         request.startsWith('.') ||
         request.startsWith('/') ||
         request.startsWith('!') ||
-        request.startsWith('http') ||
         request.startsWith('@/') ||
         request.startsWith('@util/') ||
         path.isAbsolute(request) ||
@@ -539,6 +558,10 @@ function parse_configuration(entry: Entry): (_env: any, argv: any) => webpack.Co
         fs.existsSync(request)
       ) {
         return callback();
+      }
+
+      if (request.startsWith('http')) {
+        return callback(null, 'module-import ' + request);
       }
 
       if (

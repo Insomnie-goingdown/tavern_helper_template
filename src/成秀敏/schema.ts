@@ -1,6 +1,4 @@
-import { registerMvuSchema } from 'https://testingcf.jsdelivr.net/gh/StageDog/tavern_resource/dist/util/mvu_zod.js';
 import _ from 'lodash';
-import { prefault } from 'zod';
 
 export const Schema = z.object({
   世界系统: z.object({
@@ -182,7 +180,7 @@ export const Schema = z.object({
     司南: z.object({
       个人表现分: z.coerce.number().transform(v => _.clamp(v, 0, 100)).prefault(96),
       关系值: z.object({
-        对<user>: z.string().prefault('哀其不幸'),
+        '对<user>': z.string().prefault('哀其不幸'),
         对成秀敏: z.string().prefault('损友'),
       }).prefault({}),
       与允儿的关系: z.object({
@@ -193,7 +191,7 @@ export const Schema = z.object({
     李允儿: z.object({
       个人表现分: z.coerce.number().transform(v => _.clamp(v, 0, 100)).prefault(88),
       关系值: z.object({
-        对<user>: z.string().prefault('关心心疼'),
+        '对<user>': z.string().prefault('关心心疼'),
         对成秀敏: z.string().prefault('崇拜鼓技'),
       }).prefault({}),
       成长轨迹: z.object({
@@ -206,8 +204,4 @@ export const Schema = z.object({
       介入状态: z.boolean().prefault(false),
     }).prefault({}),
   }).prefault({}),
-});
-
-$(() => {
-  registerMvuSchema(Schema);
 });
