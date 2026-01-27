@@ -1,4 +1,24 @@
-<head><script type="module">import { waitUntil as __WEBPACK_EXTERNAL_MODULE_https_testingcf_jsdelivr_net_npm_async_wait_until_esm_ee35c30e_waitUntil__ } from "https://testingcf.jsdelivr.net/npm/async-wait-until/+esm";
+<head><meta charset="utf-8"><script src="https://testingcf.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script><script src="https://testingcf.jsdelivr.net/npm/lodash@4/lodash.min.js"></script><script src="https://testingcf.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script><script type="module">import * as zod from "https://cdn.jsdelivr.net/npm/zod@4.3.5/index.js";const z = zod.z ?? zod.default ?? zod;const ZodType = z?.ZodType ?? z?.ZodTypeClass ?? z?.ZodTypeAny;if (ZodType && !ZodType.prototype.prefault) {ZodType.prototype.prefault = function (def) {return this.default(def);};}window.z = zod;</script><script>(() => {
+  if (typeof window.waitGlobalInitialized !== 'function') {
+    const mockVariables = { stat_data: {} };
+    window.waitGlobalInitialized = async () => {};
+    window.getVariables = () => mockVariables;
+    window.updateVariablesWith = updater => {
+      updater(mockVariables);
+    };
+    window.getCurrentMessageId = () => 0;
+    window.Mvu = {};
+  }
+  if (typeof window.errorCatched !== 'function') {
+    window.errorCatched = fn => (...args) => {
+      try {
+        return fn(...args);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+  }
+})();</script><script type="module">import { waitUntil as __WEBPACK_EXTERNAL_MODULE_https_testingcf_jsdelivr_net_npm_async_wait_until_esm_ee35c30e_waitUntil__ } from "https://testingcf.jsdelivr.net/npm/async-wait-until/+esm";
 import { createPinia as __WEBPACK_EXTERNAL_MODULE_https_testingcf_jsdelivr_net_npm_pinia_esm_b723a504_createPinia__, defineStore as __WEBPACK_EXTERNAL_MODULE_https_testingcf_jsdelivr_net_npm_pinia_esm_b723a504_defineStore__ } from "https://testingcf.jsdelivr.net/npm/pinia/+esm";
 /******/ var __webpack_modules__ = ({
 
